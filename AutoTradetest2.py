@@ -8,21 +8,21 @@ SECRET_KEY = 'YOUR_SECRET_KEY'
 upbit = pyupbit.Upbit(API_KEY, SECRET_KEY)
 
 # API 호출 제한 확인 및 대기 시간 설정
-def check_api_limit():
+#def check_api_limit():
     # 초당 10회, 분당 600회
-    sec_limit = 10
-    min_limit = 600
+   # sec_limit = 10
+   # min_limit = 600
 
-    current_sec_calls = upbit.get_call_count(1)  # 초당 호출 횟수 조회
-    current_min_calls = upbit.get_call_count(60)  # 분당 호출 횟수 조회
+   # current_sec_calls = upbit.get_call_count(1)  # 초당 호출 횟수 조회
+   # current_min_calls = upbit.get_call_count(60)  # 분당 호출 횟수 조회
 
-    if current_sec_calls >= sec_limit:
+   # if current_sec_calls >= sec_limit:
         # 초당 호출 제한에 도달한 경우 1초 대기
-        time.sleep(1)
+    #    time.sleep(1)
 
-    if current_min_calls >= min_limit:
+   # if current_min_calls >= min_limit:
         # 분당 호출 제한에 도달한 경우 1분 대기
-        time.sleep(60)
+     #   time.sleep(60)
 
 # 강제 종료 모듈
 def force_exit(reason):
@@ -38,12 +38,14 @@ def calculate_volume_change(prev_volume, current_volume):
 # 코인 데이터 기록하기
 def record_coin_data():
     # 업비트 내의 모든 KRW 코인의 거래량 정보를 조회한다.
-    check_api_limit()  # API 호출 제한 확인 및 대기 시간 설정
+   # check_api_limit()
+    time.sleep(1)# API 호출 제한 확인 및 대기 시간 설정
     coin_data = pyupbit.get_tickers(fiat="KRW")
     
     coin_volume = {}
     for market in coin_data:
-        check_api_limit()  # API 호출 제한 확인 및 대기 시간 설정
+        #check_api_limit()
+        time.sleep(1)# API 호출 제한 확인 및 대기 시간 설정
         ticker = pyupbit.get_ohlcv(market, interval='minute1', count=2)
         current_volume = ticker.iloc[-1]['volume']
         prev_volume = ticker.iloc[-2]['volume']
@@ -59,7 +61,8 @@ def record_coin_data():
 def find_best_coin(coin_volume):
     candidate_coins = []
     for market in coin_volume.keys():
-        check_api_limit()  # API 호출 제한 확인 및 대기 시간 설정
+        #check_api_limit()
+        time.sleep(1)# API 호출 제한 확인 및 대기 시간 설정
         current_volume = coin_volume[market]
         ticker = pyupbit.get_ohlcv(market, interval='minute1', count=1)
         prev_close = ticker.iloc[-1]['close']
