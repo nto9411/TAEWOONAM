@@ -4,7 +4,7 @@ import pyupbit
 import concurrent.futures
 import requests
 import json  # json 모듈 추가
-
+#
 WEBHOOK_URL = "https://discord.com/api/webhooks/1142643634592813127/cIafpJvSwzl50Ngeu1bNdWubkPr6_uQSPiIzsDNKaLehn4mvHv6DVWc0NQ7LFdhfcgP9"
 MAX_WORKERS = 10
 DELAY = 0.1
